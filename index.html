@@ -1,0 +1,729 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome to State 1535 | Whiteout Survival</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&family=Roboto+Mono:wght@300;400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --bg-dark: #0a0e17;
+            --bg-darker: #070a12;
+            --accent-ice: #7fd3f8;
+            --accent-fire: #ff6b35;
+            --text-primary: #e6f1ff;
+            --text-secondary: #94a3b8;
+            --card-bg: rgba(22, 27, 34, 0.7);
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: var(--bg-dark);
+            color: var(--text-primary);
+            margin: 0;
+            overflow-x: hidden;
+            line-height: 1.6;
+            scroll-behavior: smooth;
+        }
+
+        #particles-js {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            background: linear-gradient(to bottom, #020617, #0a0e17);
+        }
+
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 0 20px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            bottom: -100px;
+            left: 0;
+            width: 100%;
+            height: 200px;
+            background: linear-gradient(to top, var(--bg-dark), transparent);
+            z-index: 1;
+        }
+
+        .hero-content {
+            max-width: 800px;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInUp 1.5s ease-out 0.5s forwards;
+            position: relative;
+            z-index: 2;
+        }
+
+        @keyframes fadeInUp {
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .state-number {
+            font-size: clamp(4rem, 15vw, 8rem);
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--accent-ice), var(--accent-fire));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            margin: 0;
+            line-height: 1;
+            text-shadow: 0 0 20px rgba(127, 211, 248, 0.3);
+            opacity: 0;
+            animation: 
+                fadeIn 2s ease-out 1s forwards,
+                gradientFlow 6s ease infinite;
+            background-size: 200% 200%;
+        }
+
+        @keyframes fadeIn { to { opacity: 1; } }
+        @keyframes gradientFlow {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        h1 {
+            font-size: clamp(2.5rem, 8vw, 4rem);
+            margin: 20px 0;
+            background: linear-gradient(90deg, var(--accent-ice), #a2d2ff);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            position: relative;
+            animation: slideInLeft 1s ease-out;
+        }
+
+        @keyframes slideInLeft {
+            from { transform: translateX(-100px); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+
+        .hero p {
+            font-size: clamp(1rem, 3vw, 1.3rem);
+            color: var(--text-secondary);
+            margin-bottom: 40px;
+            max-width: 700px;
+            animation: slideInRight 1s ease-out;
+        }
+
+        @keyframes slideInRight {
+            from { transform: translateX(100px); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+
+        .scroll-hint {
+            position: absolute;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            color: var(--accent-ice);
+            opacity: 0;
+            animation: fadeIn 1s ease-out 2s forwards;
+            z-index: 2;
+        }
+
+        .mouse {
+            width: 25px;
+            height: 40px;
+            border: 2px solid var(--accent-ice);
+            border-radius: 20px;
+            position: relative;
+        }
+
+        .mouse::after {
+            content: '';
+            position: absolute;
+            top: 5px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 4px;
+            height: 8px;
+            background: var(--accent-ice);
+            border-radius: 2px;
+            animation: scrollAnimation 2s infinite;
+        }
+
+        @keyframes scrollAnimation {
+            0% { top: 5px; opacity: 1; }
+            100% { top: 20px; opacity: 0; }
+        }
+
+        .features {
+            padding: 100px 20px;
+            background: rgba(10, 14, 23, 0.85);
+            backdrop-filter: blur(5px);
+            position: relative;
+            z-index: 1;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .section-header h2 {
+            font-size: clamp(2rem, 5vw, 2.5rem);
+            margin-bottom: 15px;
+            color: var(--accent-ice);
+        }
+
+        .section-header p {
+            color: var(--text-secondary);
+            max-width: 700px;
+            margin: 0 auto;
+            font-size: clamp(0.9rem, 2vw, 1.1rem);
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .feature-card {
+            background: var(--card-bg);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 30px;
+            border: 1px solid rgba(127, 211, 248, 0.1);
+            transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+            opacity: 0;
+            transform: translateY(50px);
+        }
+
+        .feature-card.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px) rotateZ(2deg);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+        }
+
+        .feature-icon {
+            font-size: 1.5rem;
+            width: 60px;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(127, 211, 248, 0.1);
+            border-radius: 50%;
+            margin: 0 auto 20px;
+        }
+
+        .cta-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 15px 40px;
+            background: linear-gradient(135deg, var(--accent-ice), var(--accent-fire));
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(127, 211, 248, 0.3);
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(127, 211, 248, 0.4);
+        }
+
+        .rules-preview {
+            padding: 100px 20px;
+            background: rgba(10, 14, 23, 0.85);
+            backdrop-filter: blur(5px);
+            position: relative;
+            z-index: 1;
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 0.6s ease;
+        }
+
+        .rules-preview.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .rules-list {
+            max-width: 800px;
+            margin: 0 auto;
+            background: var(--card-bg);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 40px;
+            border: 1px solid rgba(127, 211, 248, 0.1);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .rules-list h3 {
+            color: var(--accent-fire);
+            margin-bottom: 20px;
+            font-size: 1.8rem;
+        }
+
+        .rules-list ul {
+            padding-left: 20px;
+        }
+
+        .rules-list li {
+            margin-bottom: 15px;
+            position: relative;
+            padding-left: 25px;
+        }
+
+        .rules-list li::before {
+            content: '❄️';
+            position: absolute;
+            left: 0;
+        }
+
+        footer {
+            text-align: center;
+            padding: 50px 20px;
+            background: rgba(10, 14, 23, 0.85);
+            backdrop-filter: blur(5px);
+            border-top: 1px solid rgba(127, 211, 248, 0.1);
+            position: relative;
+            z-index: 1;
+        }
+
+        .discord-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            color: var(--accent-ice);
+            text-decoration: none;
+            font-size: 1.1rem;
+            margin-top: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .discord-link:hover {
+            color: var(--accent-fire);
+        }
+
+        .floating-widget {
+            position: fixed;
+            right: 20px;
+            z-index: 1000;
+            background: var(--card-bg);
+            border-radius: 50px;
+            padding: 10px 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            backdrop-filter: blur(5px);
+        }
+
+        .widget-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--accent-ice);
+            transition: all 0.3s ease;
+        }
+
+        .widget-content {
+            display: none;
+            position: fixed;
+            right: 20px;
+            width: 350px;
+            max-height: 80vh;
+            background: var(--card-bg);
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            overflow-y: auto;
+            z-index: 1001;
+            backdrop-filter: blur(10px);
+        }
+
+        .widget-content.active {
+            display: block;
+        }
+
+        .close-widget {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: none;
+            border: none;
+            color: var(--text-secondary);
+            font-size: 1.2rem;
+            cursor: pointer;
+        }
+
+        @media (max-width: 768px) {
+            .feature-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .widget-content {
+                width: calc(100% - 40px);
+                right: 20px;
+                left: 20px;
+            }
+            
+            .floating-widget {
+                padding: 8px 12px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="particles-js"></div>
+
+    <section class="hero">
+        <div class="hero-content">
+            <h1>WELCOME TO STATE</h1>
+            <div class="state-number">1535</div>
+            <p>A united community in Whiteout Survival where strategy meets survival. Together we thrive in the frozen wasteland through cooperation and mutual respect.</p>
+            <a href="alliances.html" class="cta-button">
+                <i class="fas fa-users"></i>
+                Explore Alliances
+            </a>
+        </div>
+        <div class="scroll-hint">
+            <span>SCROLL DOWN</span>
+            <div class="mouse"></div>
+        </div>
+    </section>
+
+    <section class="features">
+        <div class="section-header">
+            <h2>Why State 1535?</h2>
+            <p>We've built the most organized and cooperative state in Whiteout Survival</p>
+        </div>
+        <div class="feature-grid">
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-handshake"></i>
+                </div>
+                <h3>Strong NAP System</h3>
+                <p>Protected development for all alliances with clear rules against poaching and unfair attacks</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-users-cog"></i>
+                </div>
+                <h3>Coordinated Warfare</h3>
+                <p>Strategic event planning with assigned time slots for maximum participation</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-balance-scale"></i>
+                </div>
+                <h3>Fair Resource Sharing</h3>
+                <p>Organized help system during events and emergencies</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="rules-preview">
+        <div class="rules-list">
+            <h3>Our Core Rules</h3>
+            <ul>
+                <li>NAP Alliances and 1 academy are protected</li>
+                <li>3 hits/1 rally limit for non-NAP cities</li>
+                <li>No dropping tags to bypass NAP</li>
+                <li>No resource tile attacks during peace time</li>
+                <li>Zero tolerance for bullying or harassment</li>
+            </ul>
+            <a href="rules.html" class="cta-button">
+                <i class="fas fa-book-open"></i>
+                View Complete Rules
+            </a>
+        </div>
+    </section>
+
+    <footer>
+        <p>Join our community and help us build the strongest state</p>
+        <a href="https://discord.gg/9V7HEzX9BU" class="discord-link" target="_blank">
+            <i class="fab fa-discord"></i>
+            <span>Join State 1535 Discord</span>
+        </a>
+    </footer>
+
+    <!-- Floating Widgets -->
+    <div class="floating-widget" id="map-widget" style="bottom: 200px;">
+        <div class="widget-icon">
+            <i class="fas fa-map-marked-alt"></i>
+        </div>
+        <span>State Map</span>
+    </div>
+
+    <div class="widget-content" id="map-content">
+        <button class="close-widget">&times;</button>
+        <h3>State 1535 Territory Map</h3>
+        <img src="map.jpg" alt="State Map" style="width: 100%; border-radius: 8px;">
+        <p>Clickable alliance territories coming soon</p>
+    </div>
+
+    <div class="floating-widget" id="comments-widget" style="bottom: 140px;">
+        <div class="widget-icon">
+            <i class="fas fa-comment-dots"></i>
+        </div>
+        <span>Feedback</span>
+    </div>
+
+    <div class="widget-content" id="comments-content">
+        <button class="close-widget">&times;</button>
+        <h3>Share Your Experience</h3>
+        <div id="comments-container"></div>
+        <form id="comment-form">
+            <input type="text" id="comment-name" placeholder="Your name (optional)">
+            <textarea id="comment-text" placeholder="Your feedback" required></textarea>
+            <button type="submit">Post Comment</button>
+        </form>
+    </div>
+
+    <div class="floating-widget" id="transfer-widget" style="bottom: 80px;">
+        <div class="widget-icon">
+            <i class="fas fa-exchange-alt"></i>
+        </div>
+        <span>Transfers</span>
+    </div>
+
+    <div class="widget-content" id="transfer-content">
+        <button class="close-widget">&times;</button>
+        <h3>Transfer to State 1535</h3>
+        <form id="transfer-form">
+            <input type="text" id="player-name" placeholder="Player Name" required>
+            <input type="number" id="player-id" placeholder="Player ID" required>
+            <input type="number" id="current-state" placeholder="Current State" required>
+            <select id="furnace-level" required>
+                <option value="">Furnace Level</option>
+                <option value="F1">F1</option>
+                <option value="F2">F2</option>
+            </select>
+            <textarea id="transfer-message" placeholder="Additional info"></textarea>
+            <button type="submit">Submit</button>
+        </form>
+        <div id="transfer-entries"></div>
+    </div>
+
+    <div class="floating-widget" id="music-widget" style="bottom: 20px;">
+        <div class="widget-icon" id="music-icon">
+            <i class="fas fa-play"></i>
+        </div>
+        <span>Music</span>
+    </div>
+
+    <audio id="bg-music" loop>
+        <source src="mixkit-serene-view-443.mp3" type="audio/mpeg">
+    </audio>
+
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    <script>
+        // Particles Configuration
+        particlesJS('particles-js', {
+            particles: {
+                number: { value: 100, density: { enable: true, value_area: 800 } },
+                color: { value: "#7fd3f8" },
+                shape: {
+                    type: "image",
+                    image: {
+                        src: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Cpath fill='%237fd3f8' d='M461.9 442.7c-8.5-11.2-21.2-17.7-34.9-17.7H85.1c-13.7 0-26.4 6.5-34.9 17.7L256 512l205.9-69.3zM256 0L0 170.7v170.7L256 512 512 341.3V170.7L256 0z'/%3E%3C/svg%3E",
+                        width: 512,
+                        height: 512
+                    }
+                },
+                opacity: { value: 0.7, random: true },
+                size: { value: 10, random: true },
+                move: {
+                    enable: true,
+                    speed: 1,
+                    direction: "bottom",
+                    out_mode: "out"
+                }
+            },
+            interactivity: {
+                detect_on: "canvas",
+                events: {
+                    onhover: { enable: true, mode: "repulse" },
+                    onclick: { enable: true, mode: "push" }
+                }
+            }
+        });
+
+        // Scroll Animations
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.feature-card, .rules-preview').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Widget System
+        const widgets = {
+            'map-widget': 'map-content',
+            'comments-widget': 'comments-content',
+            'transfer-widget': 'transfer-content',
+            'music-widget': 'music-content'
+        };
+
+        Object.entries(widgets).forEach(([widgetId, contentId]) => {
+            const widget = document.getElementById(widgetId);
+            const content = document.getElementById(contentId);
+            
+            if (widget && content) {
+                const closeBtn = content.querySelector('.close-widget');
+                
+                widget.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    document.querySelectorAll('.widget-content').forEach(w => {
+                        if (w.id !== contentId) w.classList.remove('active');
+                    });
+                    content.classList.toggle('active');
+                });
+
+                if (closeBtn) {
+                    closeBtn.addEventListener('click', () => {
+                        content.classList.remove('active');
+                    });
+                }
+            }
+        });
+
+        document.addEventListener('click', (e) => {
+            if (!e.target.closest('.widget-content') && !e.target.closest('.floating-widget')) {
+                document.querySelectorAll('.widget-content').forEach(w => {
+                    w.classList.remove('active');
+                });
+            }
+        });
+
+        // Comment System
+        document.getElementById('comment-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const name = document.getElementById('comment-name').value || 'Anonymous';
+            const text = document.getElementById('comment-text').value;
+            
+            if (text.trim()) {
+                const comment = document.createElement('div');
+                comment.className = 'comment';
+                comment.innerHTML = `
+                    <div class="comment-header">
+                        <strong>${name}</strong>
+                        <span>${new Date().toLocaleDateString()}</span>
+                    </div>
+                    <p>${text}</p>
+                `;
+                document.getElementById('comments-container').prepend(comment);
+                this.reset();
+            }
+        });
+
+        // Transfer System
+        document.getElementById('transfer-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const transferData = {
+                name: document.getElementById('player-name').value,
+                id: document.getElementById('player-id').value,
+                state: document.getElementById('current-state').value,
+                furnace: document.getElementById('furnace-level').value,
+                message: document.getElementById('transfer-message').value
+            };
+
+            if (transferData.name && transferData.id && transferData.state && transferData.furnace) {
+                const transferEntry = document.createElement('div');
+                transferEntry.className = 'transfer-entry';
+                transferEntry.innerHTML = `
+                    <div class="transfer-header">
+                        <strong>${transferData.name}</strong>
+                        <span>${new Date().toLocaleDateString()}</span>
+                    </div>
+                    <div>ID: ${transferData.id}</div>
+                    <div>From State: ${transferData.state}</div>
+                    <div>Furnace: ${transferData.furnace}</div>
+                    ${transferData.message ? `<p>${transferData.message}</p>` : ''}
+                `;
+                document.getElementById('transfer-entries').prepend(transferEntry);
+                this.reset();
+            }
+        });
+
+        // Music Player
+        const musicPlayer = {
+            audio: document.getElementById('bg-music'),
+            icon: document.getElementById('music-icon'),
+            isPlaying: false,
+
+            init() {
+                this.audio.volume = 0.3;
+                this.loadState();
+                this.addEventListeners();
+            },
+
+            addEventListeners() {
+                document.getElementById('music-widget').addEventListener('click', () => this.toggle());
+            },
+
+            toggle() {
+                this.isPlaying ? this.pause() : this.play();
+            },
+
+            play() {
+                this.audio.play()
+                    .then(() => {
+                        this.isPlaying = true;
+                        this.icon.innerHTML = '<i class="fas fa-pause"></i>';
+                        localStorage.setItem('musicPlaying', 'true');
+                    });
+            },
+
+            pause() {
+                this.audio.pause();
+                this.isPlaying = false;
+                this.icon.innerHTML = '<i class="fas fa-play"></i>';
+                localStorage.setItem('musicPlaying', 'false');
+            },
+
+            loadState() {
+                if (localStorage.getItem('musicPlaying') === 'true') this.play();
+            }
+        };
+        musicPlayer.init();
+
+        // Parallax Effect
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            const particles = document.getElementById('particles-js');
+            particles.style.transform = `translateY(${scrolled * 0.5}px)`;
+        });
+    </script>
+</body>
+</html>
