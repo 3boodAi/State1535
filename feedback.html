@@ -1,0 +1,624 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Feedback | State 1535 | Whiteout Survival</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&family=Roboto+Mono:wght@300;400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --bg-dark: #0a0e17;
+            --bg-darker: #070a12;
+            --accent-ice: #7fd3f8;
+            --accent-fire: #ff6b35;
+            --text-primary: #e6f1ff;
+            --text-secondary: #94a3b8;
+            --card-bg: rgba(22, 27, 34, 0.7);
+            --success: #4ade80;
+            --error: #f87171;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: var(--bg-dark);
+            color: var(--text-primary);
+            margin: 0;
+            overflow-x: hidden;
+            line-height: 1.6;
+            scroll-behavior: smooth;
+        }
+
+        #particles-js {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            background: linear-gradient(to bottom, #020617, #0a0e17);
+        }
+
+        .container {
+            position: relative;
+            z-index: 1;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 100px 20px;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .header h1 {
+            font-size: clamp(2.5rem, 8vw, 4rem);
+            margin: 20px 0;
+            background: linear-gradient(90deg, var(--accent-ice), #a2d2ff);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .header p {
+            color: var(--text-secondary);
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .feedback-container {
+            background: var(--card-bg);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 30px;
+            border: 1px solid rgba(127, 211, 248, 0.1);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            margin-bottom: 40px;
+        }
+
+        .feedback-form {
+            display: grid;
+            gap: 20px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        label {
+            color: var(--accent-ice);
+            font-weight: 600;
+        }
+
+        input, textarea, select {
+            background: rgba(10, 14, 23, 0.5);
+            border: 1px solid rgba(127, 211, 248, 0.2);
+            border-radius: 8px;
+            padding: 12px 15px;
+            color: var(--text-primary);
+            font-family: inherit;
+            transition: all 0.3s ease;
+        }
+
+        input:focus, textarea:focus, select:focus {
+            outline: none;
+            border-color: var(--accent-ice);
+            box-shadow: 0 0 0 2px rgba(127, 211, 248, 0.2);
+        }
+
+        textarea {
+            min-height: 150px;
+            resize: vertical;
+        }
+
+        button[type="submit"] {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            padding: 15px 30px;
+            background: linear-gradient(135deg, var(--accent-ice), var(--accent-fire));
+            color: white;
+            border: none;
+            border-radius: 50px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 10px;
+        }
+
+        button[type="submit"]:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(127, 211, 248, 0.4);
+        }
+
+        .comments-section {
+            margin-top: 50px;
+        }
+
+        .comment {
+            background: var(--card-bg);
+            backdrop-filter: blur(10px);
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+            border: 1px solid rgba(127, 211, 248, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .comment:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(127, 211, 248, 0.2);
+        }
+
+        .comment-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+            color: var(--accent-ice);
+        }
+
+        .comment-category {
+            display: inline-block;
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .category-suggestion { background: rgba(74, 222, 128, 0.1); color: var(--success); }
+        .category-complaint { background: rgba(248, 113, 113, 0.1); color: var(--error); }
+        .category-question { background: rgba(147, 197, 253, 0.1); color: #93c5fd; }
+        .category-alliance { background: rgba(167, 139, 250, 0.1); color: #a78bfa; }
+        .category-other { background: rgba(253, 230, 138, 0.1); color: #fde68a; }
+
+        .comment p {
+            margin: 0;
+            color: var(--text-primary);
+        }
+
+        .back-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px 30px;
+            background: rgba(127, 211, 248, 0.1);
+            color: var(--accent-ice);
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(127, 211, 248, 0.3);
+            margin-top: 30px;
+        }
+
+        .back-button:hover {
+            background: rgba(127, 211, 248, 0.2);
+            transform: translateY(-2px);
+        }
+
+        footer {
+            text-align: center;
+            padding: 50px 20px;
+            background: rgba(10, 14, 23, 0.85);
+            backdrop-filter: blur(5px);
+            border-top: 1px solid rgba(127, 211, 248, 0.1);
+            position: relative;
+            z-index: 1;
+        }
+
+        .discord-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            color: var(--accent-ice);
+            text-decoration: none;
+            font-size: 1.1rem;
+            margin-top: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .discord-link:hover {
+            color: var(--accent-fire);
+        }
+
+        /* Floating Widgets */
+        .floating-widget {
+            position: fixed;
+            right: 20px;
+            z-index: 1000;
+            background: var(--card-bg);
+            border-radius: 50px;
+            padding: 10px 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            backdrop-filter: blur(5px);
+        }
+
+        #comments-widget {
+            background: rgba(127, 211, 248, 0.2);
+            border: 1px solid var(--accent-ice);
+        }
+
+        .widget-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--accent-ice);
+            transition: all 0.3s ease;
+        }
+
+        /* Notification */
+        .notification {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--card-bg);
+            padding: 15px 25px;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .notification.show {
+            opacity: 1;
+        }
+
+        .notification.success {
+            border-left: 4px solid var(--success);
+        }
+
+        .notification.error {
+            border-left: 4px solid var(--error);
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 70px 20px;
+            }
+            
+            .floating-widget {
+                padding: 8px 12px;
+                font-size: 0.9rem;
+            }
+            
+            .widget-icon {
+                width: 35px;
+                height: 35px;
+            }
+
+            .notification {
+                width: 90%;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body class="feedback-page">
+    <div id="particles-js"></div>
+
+    <div class="container">
+        <div class="header">
+            <h1>State 1535 Feedback</h1>
+            <p>Share your thoughts, suggestions, or concerns about our state's policies and community</p>
+        </div>
+
+        <div class="feedback-container">
+            <form id="feedback-form" class="feedback-form">
+                <div class="form-group">
+                    <label for="name">Your Name (Optional)</label>
+                    <input type="text" id="name" placeholder="Anonymous">
+                </div>
+                
+                <div class="form-group">
+                    <label for="category">Category</label>
+                    <select id="category" required>
+                        <option value="">Select a category</option>
+                        <option value="suggestion">Suggestion</option>
+                        <option value="complaint">Complaint</option>
+                        <option value="question">Question</option>
+                        <option value="alliance">Alliance Matter</option>
+                        <option value="other">Other</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="message">Your Feedback</label>
+                    <textarea id="message" placeholder="Type your feedback here..." required></textarea>
+                </div>
+                
+                <button type="submit">
+                    <i class="fas fa-paper-plane"></i>
+                    Submit Feedback
+                </button>
+            </form>
+        </div>
+
+        <div class="comments-section">
+            <h2>Recent Feedback</h2>
+            <div id="comments-container">
+                <!-- Comments will be loaded here -->
+            </div>
+        </div>
+
+        <a href="index.html" class="back-button">
+            <i class="fas fa-arrow-left"></i>
+            Back to Home
+        </a>
+    </div>
+
+    <footer>
+        <p>For urgent matters, please contact us on Discord</p>
+        <a href="https://discord.gg/9V7HEzX9BU" class="discord-link" target="_blank">
+            <i class="fab fa-discord"></i>
+            <span>Join State 1535 Discord</span>
+        </a>
+    </footer>
+
+    <!-- Notification System -->
+    <div class="notification" id="notification">
+        <i class="fas fa-check-circle"></i>
+        <span id="notification-message">Feedback submitted successfully!</span>
+    </div>
+
+    <!-- Floating Widgets -->
+    <div class="floating-widget" id="map-widget" style="bottom: 200px;">
+        <div class="widget-icon">
+            <i class="fas fa-map-marked-alt"></i>
+        </div>
+        <span>State Map</span>
+    </div>
+
+    <div class="floating-widget" id="comments-widget" style="bottom: 140px;">
+        <div class="widget-icon">
+            <i class="fas fa-comment-dots"></i>
+        </div>
+        <span>Feedback</span>
+    </div>
+
+    <div class="floating-widget" id="transfer-widget" style="bottom: 80px;">
+        <div class="widget-icon">
+            <i class="fas fa-exchange-alt"></i>
+        </div>
+        <span>Transfers</span>
+    </div>
+
+    <div class="floating-widget" id="music-widget" style="bottom: 20px;">
+        <div class="widget-icon" id="music-icon">
+            <i class="fas fa-play"></i>
+        </div>
+        <span>Music</span>
+    </div>
+
+    <audio id="bg-music" loop>
+        <source src="mixkit-serene-view-443.mp3" type="audio/mpeg">
+    </audio>
+
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    <script>
+        // Particles Configuration
+        particlesJS('particles-js', {
+            particles: {
+                number: { value: 80, density: { enable: true, value_area: 800 } },
+                color: { value: "#7fd3f8" },
+                shape: {
+                    type: "image",
+                    image: {
+                        src: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Cpath fill='%237fd3f8' d='M461.9 442.7c-8.5-11.2-21.2-17.7-34.9-17.7H85.1c-13.7 0-26.4 6.5-34.9 17.7L256 512l205.9-69.3zM256 0L0 170.7v170.7L256 512 512 341.3V170.7L256 0z'/%3E%3C/svg%3E",
+                        width: 512,
+                        height: 512
+                    }
+                },
+                opacity: { value: 0.5, random: true },
+                size: { value: 10, random: true },
+                move: {
+                    enable: true,
+                    speed: 1,
+                    direction: "bottom",
+                    out_mode: "out"
+                }
+            },
+            interactivity: {
+                detect_on: "canvas",
+                events: {
+                    onhover: { enable: true, mode: "repulse" },
+                    onclick: { enable: true, mode: "push" }
+                }
+            }
+        });
+
+        // Widget Navigation
+        document.getElementById('map-widget').addEventListener('click', function() {
+            if (!window.location.href.includes('map.html')) {
+                window.location.href = 'map.html';
+            }
+        });
+
+        document.getElementById('comments-widget').addEventListener('click', function() {
+            if (!window.location.href.includes('feedback.html')) {
+                window.location.href = 'feedback.html';
+            }
+        });
+
+        document.getElementById('transfer-widget').addEventListener('click', function() {
+            if (!window.location.href.includes('transfers.html')) {
+                window.location.href = 'transfers.html';
+            }
+        });
+
+        // Music Player
+        const musicPlayer = {
+            audio: document.getElementById('bg-music'),
+            icon: document.getElementById('music-icon'),
+            isPlaying: false,
+
+            init() {
+                this.audio.volume = 0.3;
+                this.loadState();
+                this.addEventListeners();
+            },
+
+            addEventListeners() {
+                document.getElementById('music-widget').addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    this.toggle();
+                });
+            },
+
+            toggle() {
+                this.isPlaying ? this.pause() : this.play();
+            },
+
+            play() {
+                this.audio.play()
+                    .then(() => {
+                        this.isPlaying = true;
+                        this.icon.innerHTML = '<i class="fas fa-pause"></i>';
+                        localStorage.setItem('musicPlaying', 'true');
+                    });
+            },
+
+            pause() {
+                this.audio.pause();
+                this.isPlaying = false;
+                this.icon.innerHTML = '<i class="fas fa-play"></i>';
+                localStorage.setItem('musicPlaying', 'false');
+            },
+
+            loadState() {
+                if (localStorage.getItem('musicPlaying') === 'true') this.play();
+            }
+        };
+        musicPlayer.init();
+
+        // Notification System
+        function showNotification(message, type = 'success') {
+            const notification = document.getElementById('notification');
+            const messageEl = document.getElementById('notification-message');
+            
+            notification.className = `notification ${type}`;
+            messageEl.textContent = message;
+            
+            if (type === 'success') {
+                notification.innerHTML = '<i class="fas fa-check-circle"></i>' + notification.innerHTML;
+            } else {
+                notification.innerHTML = '<i class="fas fa-exclamation-circle"></i>' + notification.innerHTML;
+            }
+            
+            notification.classList.add('show');
+            
+            setTimeout(() => {
+                notification.classList.remove('show');
+            }, 3000);
+        }
+
+        // Feedback Form Handling
+        document.getElementById('feedback-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const name = document.getElementById('name').value || 'Anonymous';
+            const category = document.getElementById('category').value;
+            const message = document.getElementById('message').value;
+            
+            if (!category) {
+                showNotification('Please select a category', 'error');
+                return;
+            }
+            
+            if (!message.trim()) {
+                showNotification('Please enter your feedback', 'error');
+                return;
+            }
+            
+            const comment = document.createElement('div');
+            comment.className = 'comment';
+            
+            // Get category display class
+            const categoryClass = `category-${category}`;
+            const categoryDisplay = category.charAt(0).toUpperCase() + category.slice(1);
+            
+            comment.innerHTML = `
+                <div class="comment-header">
+                    <strong>${name}</strong>
+                    <span>${new Date().toLocaleDateString()}</span>
+                </div>
+                <div class="comment-category ${categoryClass}">${categoryDisplay}</div>
+                <p>${message}</p>
+            `;
+            
+            document.getElementById('comments-container').prepend(comment);
+            this.reset();
+            
+            showNotification('Thank you for your feedback!');
+        });
+
+        // Load sample comments
+        const sampleComments = [
+            {
+                name: 'FrostLord',
+                date: '2023-06-15',
+                category: 'suggestion',
+                message: 'Could we organize more state-wide events? The last one was really fun and helped build community.'
+            },
+            {
+                name: 'Survivalist',
+                date: '2023-06-10',
+                category: 'complaint',
+                message: 'Some players are still attacking resource tiles during peace time. Can we enforce the rules more strictly?'
+            },
+            {
+                name: 'IceQueen',
+                date: '2023-06-08',
+                category: 'question',
+                message: 'How does the NAP system work for new alliances joining the state?'
+            },
+            {
+                name: 'Anonymous',
+                date: '2023-06-05',
+                category: 'alliance',
+                message: 'Our alliance would like to propose a new rule about tile hitting during SvS preparation'
+            },
+            {
+                name: 'FireWalker',
+                date: '2023-06-01',
+                category: 'other',
+                message: 'Just wanted to say the state leadership is doing a great job!'
+            }
+        ];
+
+        // Display sample comments
+        sampleComments.forEach(comment => {
+            const commentEl = document.createElement('div');
+            commentEl.className = 'comment';
+            
+            const categoryClass = `category-${comment.category}`;
+            const categoryDisplay = comment.category.charAt(0).toUpperCase() + comment.category.slice(1);
+            
+            commentEl.innerHTML = `
+                <div class="comment-header">
+                    <strong>${comment.name}</strong>
+                    <span>${new Date(comment.date).toLocaleDateString()}</span>
+                </div>
+                <div class="comment-category ${categoryClass}">${categoryDisplay}</div>
+                <p>${comment.message}</p>
+            `;
+            document.getElementById('comments-container').appendChild(commentEl);
+        });
+    </script>
+</body>
+</html>

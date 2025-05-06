@@ -15,6 +15,7 @@
             --text-primary: #e6f1ff;
             --text-secondary: #94a3b8;
             --card-bg: rgba(16, 21, 31, 0.8);
+            --card-border: rgba(127, 211, 248, 0.1);
         }
 
         * {
@@ -43,12 +44,12 @@
         .header {
             background: rgba(10, 14, 23, 0.95);
             backdrop-filter: blur(10px);
-            padding: 20px 0;
-            border-bottom: 1px solid rgba(127, 211, 248, 0.1);
+            padding: 15px 0;
+            border-bottom: 1px solid var(--card-border);
             position: sticky;
             top: 0;
             z-index: 100;
-            box-shadow: 0 2px 15px rgba(0,0,0,0.2);
+            box-shadow: 0 2px 25px rgba(0,0,0,0.3);
         }
 
         .nav-container {
@@ -61,22 +62,24 @@
         }
 
         .logo {
-            font-size: 1.5rem;
+            font-size: 1.8rem;
             font-weight: 700;
-            background: linear-gradient(90deg, var(--accent-ice), #a2d2ff);
+            background: linear-gradient(135deg, var(--accent-ice), var(--accent-fire));
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
             text-decoration: none;
             transition: all 0.3s ease;
+            text-shadow: 0 0 15px rgba(127, 211, 248, 0.3);
         }
 
         .logo:hover {
             opacity: 0.9;
+            text-shadow: 0 0 20px rgba(127, 211, 248, 0.5);
         }
 
         .back-btn {
-            padding: 10px 20px;
+            padding: 10px 25px;
             background: rgba(127, 211, 248, 0.1);
             border: 1px solid var(--accent-ice);
             border-radius: 50px;
@@ -85,19 +88,21 @@
             transition: all 0.3s ease;
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 10px;
+            font-weight: 500;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
         }
 
         .back-btn:hover {
             background: rgba(127, 211, 248, 0.2);
             transform: translateY(-2px);
-            box-shadow: 0 3px 10px rgba(127, 211, 248, 0.1);
+            box-shadow: 0 5px 15px rgba(127, 211, 248, 0.2);
         }
 
         .container {
             max-width: 1200px;
             margin: 0 auto;
-            padding: 60px 20px;
+            padding: 80px 20px 40px;
         }
 
         .page-header {
@@ -115,11 +120,12 @@
 
         .page-header h1 {
             font-size: clamp(2.5rem, 5vw, 3.5rem);
-            background: linear-gradient(90deg, var(--accent-ice), #a2d2ff);
+            background: linear-gradient(135deg, var(--accent-ice), var(--accent-fire));
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
-            margin-bottom: 15px;
+            margin-bottom: 20px;
+            letter-spacing: 1px;
         }
 
         .page-header p {
@@ -127,6 +133,7 @@
             font-size: clamp(1rem, 2vw, 1.2rem);
             max-width: 700px;
             margin: 0 auto;
+            line-height: 1.7;
         }
 
         .alliance-grid {
@@ -138,16 +145,16 @@
 
         .alliance-card {
             background: var(--card-bg);
-            backdrop-filter: blur(10px);
+            backdrop-filter: blur(12px);
             border-radius: 15px;
             padding: 30px;
-            border: 1px solid rgba(127, 211, 248, 0.1);
+            border: 1px solid var(--card-border);
             transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
             opacity: 0;
             transform: translateY(30px);
             position: relative;
             overflow: hidden;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.3);
         }
 
         .alliance-card::before {
@@ -161,6 +168,19 @@
             z-index: -1;
         }
 
+        .alliance-card::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, var(--accent-ice), var(--accent-fire));
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.5s ease;
+        }
+
         .alliance-card.visible {
             opacity: 1;
             transform: translateY(0);
@@ -169,34 +189,41 @@
         .alliance-card:hover {
             transform: translateY(-10px) rotateZ(1deg) !important;
             border-color: var(--accent-ice);
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+        }
+
+        .alliance-card:hover::after {
+            transform: scaleX(1);
         }
 
         .alliance-header {
             display: flex;
             align-items: center;
-            margin-bottom: 20px;
+            margin-bottom: 25px;
             padding-bottom: 20px;
             border-bottom: 1px solid rgba(127, 211, 248, 0.2);
         }
 
         .alliance-icon {
-            font-size: 1.5rem;
+            font-size: 1.8rem;
             margin-right: 20px;
-            width: 70px;
-            height: 70px;
+            width: 80px;
+            height: 80px;
             background: rgba(127, 211, 248, 0.1);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             flex-shrink: 0;
-            border: 1px solid rgba(127, 211, 248, 0.2);
-            transition: all 0.3s ease;
+            border: 1px solid rgba(127, 211, 248, 0.3);
+            transition: all 0.4s ease;
+            color: var(--accent-ice);
         }
 
         .alliance-icon:hover {
-            transform: scale(1.1);
+            transform: scale(1.1) rotate(10deg);
+            background: rgba(127, 211, 248, 0.2);
+            box-shadow: 0 0 20px rgba(127, 211, 248, 0.2);
         }
 
         .alliance-info {
@@ -204,16 +231,55 @@
         }
 
         .alliance-name {
-            font-size: 1.5rem;
+            font-size: 1.6rem;
             font-weight: 600;
             color: var(--accent-ice);
-            margin-bottom: 5px;
+            margin-bottom: 8px;
+            letter-spacing: 0.5px;
         }
 
         .alliance-power {
             font-family: 'Roboto Mono', monospace;
             color: var(--accent-fire);
             font-size: 1.2rem;
+            font-weight: 500;
+        }
+
+        .power-bar-container {
+            height: 8px;
+            background: rgba(127, 211, 248, 0.1);
+            border-radius: 10px;
+            margin: 25px 0;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .power-bar {
+            height: 100%;
+            background: linear-gradient(90deg, var(--accent-ice), var(--accent-fire));
+            border-radius: 10px;
+            transition: width 1.2s cubic-bezier(0.22, 1, 0.36, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .power-bar::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(90deg, 
+                            transparent, 
+                            rgba(255,255,255,0.3), 
+                            transparent);
+            animation: shine 2s infinite;
+        }
+
+        @keyframes shine {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
         }
 
         .event-schedule {
@@ -224,24 +290,39 @@
             display: flex;
             align-items: center;
             margin-bottom: 15px;
-            padding: 12px;
+            padding: 15px;
             background: rgba(10, 14, 23, 0.5);
-            border-radius: 8px;
+            border-radius: 10px;
             transition: all 0.3s ease;
             cursor: pointer;
+            border-left: 3px solid transparent;
         }
 
         .event-item:hover {
             background: rgba(127, 211, 248, 0.1);
-            transform: translateX(5px);
+            transform: translateX(8px);
+            border-left: 3px solid var(--accent-ice);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
         }
 
         .event-icon {
-            font-size: 1.3rem;
+            font-size: 1.4rem;
             margin-right: 15px;
-            width: 40px;
-            text-align: center;
+            width: 45px;
+            height: 45px;
+            background: rgba(127, 211, 248, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             flex-shrink: 0;
+            color: var(--accent-ice);
+            transition: all 0.3s ease;
+        }
+
+        .event-item:hover .event-icon {
+            transform: scale(1.1);
+            background: rgba(127, 211, 248, 0.2);
         }
 
         .event-details {
@@ -249,30 +330,59 @@
         }
 
         .event-name {
-            font-weight: 500;
-            margin-bottom: 3px;
+            font-weight: 600;
+            margin-bottom: 5px;
             color: var(--accent-ice);
+            font-size: 1.1rem;
         }
 
         .event-time {
             font-family: 'Roboto Mono', monospace;
-            font-size: 0.9rem;
+            font-size: 0.95rem;
             color: var(--text-secondary);
+            letter-spacing: 0.5px;
         }
 
-        .power-bar-container {
-            height: 5px;
+        footer {
+            text-align: center;
+            padding: 60px 20px;
+            background: rgba(10, 14, 23, 0.9);
+            backdrop-filter: blur(10px);
+            border-top: 1px solid var(--card-border);
+            position: relative;
+            z-index: 1;
+            margin-top: 40px;
+        }
+
+        footer p {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+            max-width: 600px;
+            margin: 0 auto 25px;
+            line-height: 1.7;
+        }
+
+        .discord-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            color: var(--accent-ice);
+            text-decoration: none;
+            font-size: 1.2rem;
+            font-weight: 500;
+            padding: 12px 30px;
+            border-radius: 50px;
             background: rgba(127, 211, 248, 0.1);
-            border-radius: 5px;
-            margin-top: 15px;
-            overflow: hidden;
+            border: 1px solid rgba(127, 211, 248, 0.3);
+            transition: all 0.3s ease;
+            margin-top: 10px;
         }
 
-        .power-bar {
-            height: 100%;
-            background: linear-gradient(90deg, var(--accent-ice), var(--accent-fire));
-            border-radius: 5px;
-            transition: width 1s ease-out;
+        .discord-link:hover {
+            color: white;
+            background: rgba(127, 211, 248, 0.2);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 20px rgba(127, 211, 248, 0.2);
         }
 
         @media (max-width: 768px) {
@@ -287,8 +397,26 @@
             
             .alliance-icon {
                 margin-right: 0;
-                margin-bottom: 15px;
+                margin-bottom: 20px;
             }
+
+            .container {
+                padding: 60px 15px 30px;
+            }
+
+            .back-btn {
+                padding: 8px 15px;
+                font-size: 0.9rem;
+            }
+
+            .logo {
+                font-size: 1.5rem;
+            }
+        }
+
+        @keyframes powerBarAnimation {
+            from { width: 0; }
+            to { width: var(--final-width); }
         }
     </style>
 </head>
@@ -308,7 +436,7 @@
     <main class="container">
         <div class="page-header">
             <h1>Our Alliances</h1>
-            <p>8 powerful factions united under the State 1535 NAP agreement</p>
+            <p>8 powerful factions united under the State 1535 NAP agreement, working together to dominate Whiteout Survival</p>
         </div>
 
         <div class="alliance-grid">
@@ -326,10 +454,31 @@
                 </div>
                 <div class="event-schedule">
                     <div class="event-item">
-                        <div class="event-icon"><i class="fas fa-house"></i></div>
+                        <div class="event-icon"><i class="fas fa-paw"></i></div>
                         <div class="event-details">
-                            <div class="event-name">Canyon</div>
-                            <div class="event-time">2:00 & 14:00 UTC</div>
+                            <div class="event-name">Bear Time</div>
+                            <div class="event-time">00:30 & 02:00 UTC</div>
+                        </div>
+                    </div>
+                    <div class="event-item">
+                        <div class="event-icon"><i class="fas fa-industry"></i></div>
+                        <div class="event-details">
+                            <div class="event-name">Foundry Legion</div>
+                            <div class="event-time">02:00 & 19:00 UTC</div>
+                        </div>
+                    </div>
+                    <div class="event-item">
+                        <div class="event-icon"><i class="fas fa-mountain"></i></div>
+                        <div class="event-details">
+                            <div class="event-name">Canyon Clash</div>
+                            <div class="event-time">02:00 & 19:00 UTC</div>
+                        </div>
+                    </div>
+                    <div class="event-item">
+                        <div class="event-icon"><i class="fas fa-bolt"></i></div>
+                        <div class="event-details">
+                            <div class="event-name">Crazy Joe</div>
+                            <div class="event-time">23:30 UTC</div>
                         </div>
                     </div>
                 </div>
@@ -349,10 +498,31 @@
                 </div>
                 <div class="event-schedule">
                     <div class="event-item">
-                        <div class="event-icon"><i class="fas fa-tower-observation"></i></div>
+                        <div class="event-icon"><i class="fas fa-paw"></i></div>
                         <div class="event-details">
-                            <div class="event-name">Watchtower</div>
-                            <div class="event-time">6:00 & 18:00 UTC</div>
+                            <div class="event-name">Bear Time</div>
+                            <div class="event-time">00:30 & 02:00 UTC</div>
+                        </div>
+                    </div>
+                    <div class="event-item">
+                        <div class="event-icon"><i class="fas fa-industry"></i></div>
+                        <div class="event-details">
+                            <div class="event-name">Foundry Legion</div>
+                            <div class="event-time">02:00 & 19:00 UTC</div>
+                        </div>
+                    </div>
+                    <div class="event-item">
+                        <div class="event-icon"><i class="fas fa-mountain"></i></div>
+                        <div class="event-details">
+                            <div class="event-name">Canyon Clash</div>
+                            <div class="event-time">02:00 & 19:00 UTC</div>
+                        </div>
+                    </div>
+                    <div class="event-item">
+                        <div class="event-icon"><i class="fas fa-bolt"></i></div>
+                        <div class="event-details">
+                            <div class="event-name">Crazy Joe</div>
+                            <div class="event-time">23:30 UTC</div>
                         </div>
                     </div>
                 </div>
@@ -372,10 +542,31 @@
                 </div>
                 <div class="event-schedule">
                     <div class="event-item">
-                        <div class="event-icon"><i class="fas fa-fort-awesome"></i></div>
+                        <div class="event-icon"><i class="fas fa-paw"></i></div>
                         <div class="event-details">
-                            <div class="event-name">Stronghold</div>
-                            <div class="event-time">10:00 & 22:00 UTC</div>
+                            <div class="event-name">Bear Time</div>
+                            <div class="event-time">00:30 & 02:00 UTC</div>
+                        </div>
+                    </div>
+                    <div class="event-item">
+                        <div class="event-icon"><i class="fas fa-industry"></i></div>
+                        <div class="event-details">
+                            <div class="event-name">Foundry Legion</div>
+                            <div class="event-time">02:00 & 19:00 UTC</div>
+                        </div>
+                    </div>
+                    <div class="event-item">
+                        <div class="event-icon"><i class="fas fa-mountain"></i></div>
+                        <div class="event-details">
+                            <div class="event-name">Canyon Clash</div>
+                            <div class="event-time">02:00 & 19:00 UTC</div>
+                        </div>
+                    </div>
+                    <div class="event-item">
+                        <div class="event-icon"><i class="fas fa-bolt"></i></div>
+                        <div class="event-details">
+                            <div class="event-name">Crazy Joe</div>
+                            <div class="event-time">23:30 UTC</div>
                         </div>
                     </div>
                 </div>
@@ -395,10 +586,31 @@
                 </div>
                 <div class="event-schedule">
                     <div class="event-item">
-                        <div class="event-icon"><i class="fas fa-icicles"></i></div>
+                        <div class="event-icon"><i class="fas fa-paw"></i></div>
                         <div class="event-details">
-                            <div class="event-name">Frostbite</div>
-                            <div class="event-time">3:00 & 15:00 UTC</div>
+                            <div class="event-name">Bear Time</div>
+                            <div class="event-time">00:30 & 02:00 UTC</div>
+                        </div>
+                    </div>
+                    <div class="event-item">
+                        <div class="event-icon"><i class="fas fa-industry"></i></div>
+                        <div class="event-details">
+                            <div class="event-name">Foundry Legion</div>
+                            <div class="event-time">02:00 & 19:00 UTC</div>
+                        </div>
+                    </div>
+                    <div class="event-item">
+                        <div class="event-icon"><i class="fas fa-mountain"></i></div>
+                        <div class="event-details">
+                            <div class="event-name">Canyon Clash</div>
+                            <div class="event-time">02:00 & 19:00 UTC</div>
+                        </div>
+                    </div>
+                    <div class="event-item">
+                        <div class="event-icon"><i class="fas fa-bolt"></i></div>
+                        <div class="event-details">
+                            <div class="event-name">Crazy Joe</div>
+                            <div class="event-time">23:30 UTC</div>
                         </div>
                     </div>
                 </div>
@@ -418,10 +630,31 @@
                 </div>
                 <div class="event-schedule">
                     <div class="event-item">
-                        <div class="event-icon"><i class="fas fa-gun"></i></div>
+                        <div class="event-icon"><i class="fas fa-paw"></i></div>
                         <div class="event-details">
-                            <div class="event-name">Raids</div>
-                            <div class="event-time">Random Hours</div>
+                            <div class="event-name">Bear Time</div>
+                            <div class="event-time">00:30 & 02:00 UTC</div>
+                        </div>
+                    </div>
+                    <div class="event-item">
+                        <div class="event-icon"><i class="fas fa-industry"></i></div>
+                        <div class="event-details">
+                            <div class="event-name">Foundry Legion</div>
+                            <div class="event-time">02:00 & 19:00 UTC</div>
+                        </div>
+                    </div>
+                    <div class="event-item">
+                        <div class="event-icon"><i class="fas fa-mountain"></i></div>
+                        <div class="event-details">
+                            <div class="event-name">Canyon Clash</div>
+                            <div class="event-time">02:00 & 19:00 UTC</div>
+                        </div>
+                    </div>
+                    <div class="event-item">
+                        <div class="event-icon"><i class="fas fa-bolt"></i></div>
+                        <div class="event-details">
+                            <div class="event-name">Crazy Joe</div>
+                            <div class="event-time">23:30 UTC</div>
                         </div>
                     </div>
                 </div>
@@ -441,10 +674,31 @@
                 </div>
                 <div class="event-schedule">
                     <div class="event-item">
-                        <div class="event-icon"><i class="fas fa-ship"></i></div>
+                        <div class="event-icon"><i class="fas fa-paw"></i></div>
                         <div class="event-details">
-                            <div class="event-name">Naval Battles</div>
-                            <div class="event-time">5:00 & 17:00 UTC</div>
+                            <div class="event-name">Bear Time</div>
+                            <div class="event-time">00:30 & 02:00 UTC</div>
+                        </div>
+                    </div>
+                    <div class="event-item">
+                        <div class="event-icon"><i class="fas fa-industry"></i></div>
+                        <div class="event-details">
+                            <div class="event-name">Foundry Legion</div>
+                            <div class="event-time">02:00 & 19:00 UTC</div>
+                        </div>
+                    </div>
+                    <div class="event-item">
+                        <div class="event-icon"><i class="fas fa-mountain"></i></div>
+                        <div class="event-details">
+                            <div class="event-name">Canyon Clash</div>
+                            <div class="event-time">02:00 & 19:00 UTC</div>
+                        </div>
+                    </div>
+                    <div class="event-item">
+                        <div class="event-icon"><i class="fas fa-bolt"></i></div>
+                        <div class="event-details">
+                            <div class="event-name">Crazy Joe</div>
+                            <div class="event-time">23:30 UTC</div>
                         </div>
                     </div>
                 </div>
@@ -464,10 +718,31 @@
                 </div>
                 <div class="event-schedule">
                     <div class="event-item">
-                        <div class="event-icon"><i class="fas fa-dungeon"></i></div>
+                        <div class="event-icon"><i class="fas fa-paw"></i></div>
                         <div class="event-details">
-                            <div class="event-name">Underground</div>
-                            <div class="event-time">Midnight UTC</div>
+                            <div class="event-name">Bear Time</div>
+                            <div class="event-time">00:30 & 02:00 UTC</div>
+                        </div>
+                    </div>
+                    <div class="event-item">
+                        <div class="event-icon"><i class="fas fa-industry"></i></div>
+                        <div class="event-details">
+                            <div class="event-name">Foundry Legion</div>
+                            <div class="event-time">02:00 & 19:00 UTC</div>
+                        </div>
+                    </div>
+                    <div class="event-item">
+                        <div class="event-icon"><i class="fas fa-mountain"></i></div>
+                        <div class="event-details">
+                            <div class="event-name">Canyon Clash</div>
+                            <div class="event-time">02:00 & 19:00 UTC</div>
+                        </div>
+                    </div>
+                    <div class="event-item">
+                        <div class="event-icon"><i class="fas fa-bolt"></i></div>
+                        <div class="event-details">
+                            <div class="event-name">Crazy Joe</div>
+                            <div class="event-time">23:30 UTC</div>
                         </div>
                     </div>
                 </div>
@@ -487,10 +762,31 @@
                 </div>
                 <div class="event-schedule">
                     <div class="event-item">
-                        <div class="event-icon"><i class="fas fa-rocket"></i></div>
+                        <div class="event-icon"><i class="fas fa-paw"></i></div>
                         <div class="event-details">
-                            <div class="event-name">Blitz</div>
-                            <div class="event-time">Surprise Attacks</div>
+                            <div class="event-name">Bear Time</div>
+                            <div class="event-time">00:30 & 02:00 UTC</div>
+                        </div>
+                    </div>
+                    <div class="event-item">
+                        <div class="event-icon"><i class="fas fa-industry"></i></div>
+                        <div class="event-details">
+                            <div class="event-name">Foundry Legion</div>
+                            <div class="event-time">02:00 & 19:00 UTC</div>
+                        </div>
+                    </div>
+                    <div class="event-item">
+                        <div class="event-icon"><i class="fas fa-mountain"></i></div>
+                        <div class="event-details">
+                            <div class="event-name">Canyon Clash</div>
+                            <div class="event-time">02:00 & 19:00 UTC</div>
+                        </div>
+                    </div>
+                    <div class="event-item">
+                        <div class="event-icon"><i class="fas fa-bolt"></i></div>
+                        <div class="event-details">
+                            <div class="event-name">Crazy Joe</div>
+                            <div class="event-time">23:30 UTC</div>
                         </div>
                     </div>
                 </div>
@@ -498,12 +794,29 @@
         </div>
     </main>
 
+
+    <footer>
+        <p>Ready to join one of our elite alliances? Connect with us on Discord to learn more about recruitment opportunities and state coordination.</p>
+        <a href="https://discord.gg/9V7HEzX9BU" class="discord-link" target="_blank">
+            <i class="fab fa-discord"></i>
+            <span>Join State 1535 Discord</span>
+        </a>
+    </footer>
+
     <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
     <script>
         particlesJS('particles-js', {
             particles: {
-                number: { value: 100, density: { enable: true, value_area: 800 } },
-                color: { value: "#7fd3f8" },
+                number: { 
+                    value: 120, 
+                    density: { 
+                        enable: true, 
+                        value_area: 1000 
+                    } 
+                },
+                color: { 
+                    value: "#7fd3f8" 
+                },
                 shape: {
                     type: "image",
                     image: {
@@ -512,20 +825,64 @@
                         height: 512
                     }
                 },
-                opacity: { value: 0.7, random: true },
-                size: { value: 10, random: true },
+                opacity: { 
+                    value: 0.7, 
+                    random: true,
+                    anim: {
+                        enable: true,
+                        speed: 1,
+                        opacity_min: 0.3,
+                        sync: false
+                    }
+                },
+                size: { 
+                    value: 12, 
+                    random: true,
+                    anim: {
+                        enable: true,
+                        speed: 2,
+                        size_min: 5,
+                        sync: false
+                    }
+                },
                 move: {
                     enable: true,
-                    speed: 1,
+                    speed: 1.5,
                     direction: "bottom",
-                    out_mode: "out"
+                    random: true,
+                    straight: false,
+                    out_mode: "out",
+                    bounce: false,
+                    attract: {
+                        enable: true,
+                        rotateX: 600,
+                        rotateY: 1200
+                    }
                 }
             },
             interactivity: {
                 detect_on: "canvas",
                 events: {
-                    onhover: { enable: true, mode: "repulse" },
-                    onclick: { enable: true, mode: "push" }
+                    onhover: { 
+                        enable: true, 
+                        mode: "bubble" 
+                    },
+                    onclick: { 
+                        enable: true, 
+                        mode: "push" 
+                    }
+                },
+                modes: {
+                    bubble: {
+                        distance: 100,
+                        size: 15,
+                        duration: 2,
+                        opacity: 0.8,
+                        speed: 3
+                    },
+                    push: {
+                        particles_nb: 4
+                    }
                 }
             }
         });
@@ -534,13 +891,23 @@
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
                     entry.target.classList.add('visible');
+                    
                     if(entry.target.querySelector('.power-bar')) {
-                        entry.target.querySelector('.power-bar').style.width = 
-                            entry.target.querySelector('.power-bar').style.width;
+                        const powerBar = entry.target.querySelector('.power-bar');
+                        const finalWidth = powerBar.style.width;
+                        powerBar.style.width = '0';
+                        
+                        void powerBar.offsetWidth;
+                        
+                        powerBar.style.transition = 'width 1.5s cubic-bezier(0.22, 1, 0.36, 1)';
+                        powerBar.style.width = finalWidth;
                     }
                 }
             });
-        }, { threshold: 0.1 });
+        }, { 
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        });
 
         document.querySelectorAll('.alliance-card, .page-header').forEach(el => {
             observer.observe(el);
@@ -549,7 +916,16 @@
         window.addEventListener('scroll', () => {
             const scrolled = window.pageYOffset;
             const particles = document.getElementById('particles-js');
-            particles.style.transform = `translateY(${scrolled * 0.5}px)`;
+            particles.style.transform = `translateY(${scrolled * 0.3}px)`;
+        });
+
+        document.querySelectorAll('.event-item').forEach(item => {
+            item.addEventListener('mouseenter', () => {
+                item.querySelector('.event-icon').style.transform = 'rotate(10deg) scale(1.1)';
+            });
+            item.addEventListener('mouseleave', () => {
+                item.querySelector('.event-icon').style.transform = '';
+            });
         });
     </script>
 </body>

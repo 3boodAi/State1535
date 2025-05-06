@@ -594,6 +594,24 @@
             'transfer-widget': 'transfer-content',
             'music-widget': 'music-content'
         };
+        // Widget Navigation
+        document.getElementById('map-widget').addEventListener('click', function() {
+            if (!window.location.href.includes('map.html')) {
+                window.location.href = 'map.html';
+            }
+        });
+
+        document.getElementById('comments-widget').addEventListener('click', function() {
+            if (!window.location.href.includes('feedback.html')) {
+                window.location.href = 'feedback.html';
+            }
+        });
+
+        document.getElementById('transfer-widget').addEventListener('click', function() {
+            if (!window.location.href.includes('transfers.html')) {
+                window.location.href = 'transfers.html';
+            }
+        });
 
         Object.entries(widgets).forEach(([widgetId, contentId]) => {
             const widget = document.getElementById(widgetId);

@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Transfer to State 1535 | Whiteout Survival</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&family=Roboto+Mono:wght@300;400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --bg-dark: #0a0e17;
+            --bg-darker: #070a12;
+            --accent-ice: #7fd3f8;
+            --accent-fire: #ff6b35;
+            --text-primary: #e6f1ff;
+            --text-secondary: #94a3b8;
+            --card-bg: rgba(22, 27, 34, 0.7);
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: var(--bg-dark);
+            color: var(--text-primary);
+            margin: 0;
+            overflow-x: hidden;
+            line-height: 1.6;
+            scroll-behavior: smooth;
+        }
+
+        #particles-js {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            background: linear-gradient(to bottom, #020617, #0a0e17);
+        }
+
+        .container {
+            position: relative;
+            z-index: 1;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 100px 20px;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .header h1 {
+            font-size: clamp(2.5rem, 8vw, 4rem);
+            margin: 20px 0;
+            background: linear-gradient(90deg, var(--accent-ice), #a2d2ff);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .header p {
+            color: var(--text-secondary);
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .transfer-container {
+            background: var(--card-bg);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 30px;
+            border: 1px solid rgba(127, 211, 248, 0.1);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .transfer-form {
+            display: grid;
+            gap: 20px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        label {
+            color: var(--accent-ice);
+            font-weight: 600;
+        }
+
+        input, textarea, select {
+            background: rgba(10, 14, 23, 0.5);
+            border: 1px solid rgba(127, 211, 248, 0.2);
+            border-radius: 8px;
+            padding: 12px 15px;
+            color: var(--text-primary);
+            font-family: inherit;
+            transition: all 0.3s ease;
+        }
+
+        input:focus, textarea:focus, select:focus {
+            outline: none;
+            border-color: var(--accent-ice);
+            box-shadow: 0 0 0 2px rgba(127, 211, 248, 0.2);
+        }
+
+        textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+
+        button[type="submit"] {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            padding: 15px 30px;
+            background: linear-gradient(135deg, var(--accent-ice), var(--accent-fire));
+            color: white;
+            border: none;
+            border-radius: 50px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 10px;
+        }
+
+        button[type="submit"]:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(127, 211, 248, 0.4);
+        }
+
+        .requirements {
+            margin-top: 40px;
+            background: rgba(127, 211, 248, 0.1);
+            border-radius: 10px;
+            padding: 20px;
+            border: 1px solid rgba(127, 211, 248, 0.2);
+        }
+
+        .requirements h3 {
+            color: var(--accent-ice);
+            margin-top: 0;
+        }
+
+        .requirements ul {
+            padding-left: 20px;
+        }
+
+        .requirements li {
+            margin-bottom: 10px;
+        }
+
+        .transfer-list {
+            margin-top: 50px;
+        }
+
+        .transfer-entry {
+            background: var(--card-bg);
+            backdrop-filter: blur(10px);
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+            border: 1px solid rgba(127, 211, 248, 0.1);
+        }
+
+        .transfer-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+            color: var(--accent-ice);
+        }
+
+        .back-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px 30px;
+            background: rgba(127, 211, 248, 0.1);
+            color: var(--accent-ice);
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(127, 211, 248, 0.3);
+            margin-top: 30px;
+        }
+
+        .back-button:hover {
+            background: rgba(127, 211, 248, 0.2);
+            transform: translateY(-2px);
+        }
+
+        footer {
+            text-align: center;
+            padding: 50px 20px;
+            background: rgba(10, 14, 23, 0.85);
+            backdrop-filter: blur(5px);
+            border-top: 1px solid rgba(127, 211, 248, 0.1);
+            position: relative;
+            z-index: 1;
+        }
+
+        .discord-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            color: var(--accent-ice);
+            text-decoration: none;
+            font-size: 1.1rem;
+            margin-top: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .discord-link:hover {
+            color: var(--accent-fire);
+        }
+
+        /* Floating Widgets */
+        .floating-widget {
+            position: fixed;
+            right: 20px;
+            z-index: 1000;
+            background: var(--card-bg);
+            border-radius: 50px;
+            padding: 10px 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            backdrop-filter: blur(5px);
+        }
+
+        #transfer-widget {
+            background: rgba(127, 211, 248, 0.2);
+            border: 1px solid var(--accent-ice);
+        }
+
+        .widget-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--accent-ice);
+            transition: all 0.3s ease;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 70px 20px;
+            }
+            
+            .floating-widget {
+                padding: 8px 12px;
+                font-size: 0.9rem;
+            }
+            
+            .widget-icon {
+                width: 35px;
+                height: 35px;
+            }
+        }
+    </style>
+</head>
+<body class="transfers-page">
+    <div id="particles-js"></div>
+
+    <div class="container">
+        <div class="header">
+            <h1>Transfer to State 1535</h1>
+            <p>Register your transfer request to join our thriving community in Whiteout Survival</p>
+        </div>
+
+        <div class="transfer-container">
+            <form id="transfer-form" class="transfer-form">
+                <div class="form-group">
+                    <label for="player-name">Player Name</label>
+                    <input type="text" id="player-name" placeholder="Your in-game name" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="player-id">Player ID</label>
+                    <input type="number" id="player-id" placeholder="Your player ID" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="current-state">Current State</label>
+                    <input type="number" id="current-state" placeholder="Your current state number" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="furnace-level">Furnace Level</label>
+                    <select id="furnace-level" required>
+                        <option value="">Select your furnace level</option>
+                        <option value="F1">F1</option>
+                        <option value="F2">F2</option>
+                        <option value="F3">F3</option>
+                        <option value="F4">F4</option>
+                        <option value="F5">F5</option>
+                        <option value="F6">F6</option>
+                        <option value="F7">F7</option>
+                        <option value="F8">F8</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="alliance">Target Alliance (Optional)</label>
+                    <input type="text" id="alliance" placeholder="If you have a specific alliance in mind">
+                </div>
+                
+                <div class="form-group">
+                    <label for="message">Additional Information</label>
+                    <textarea id="message" placeholder="Tell us about your play style, experience, or any special requests"></textarea>
+                </div>
+                
+                <button type="submit">
+                    <i class="fas fa-exchange-alt"></i>
+                    Submit Transfer Request
+                </button>
+            </form>
+        </div>
+
+        <div class="requirements">
+            <h3>Transfer Requirements</h3>
+            <ul>
+                <li>Furnace level must be at least F1</li>
+                <li>Must agree to follow State 1535 rules</li>
+                <li>No recent history of cheating or harassment</li>
+                <li>Active players preferred (minimum 1M power)</li>
+            </ul>
+            <p>Our leadership team will review your request and contact you via in-game mail.</p>
+        </div>
+
+        <div class="transfer-list">
+            <h2>Recent Transfer Requests</h2>
+            <div id="transfer-entries">
+                <!-- Transfer entries will be loaded here -->
+            </div>
+        </div>
+
+        <a href="index.html" class="back-button">
+            <i class="fas fa-arrow-left"></i>
+            Back to Home
+        </a>
+    </div>
+
+    <footer>
+        <p>Have questions about transferring? Join our Discord for assistance</p>
+        <a href="https://discord.gg/9V7HEzX9BU" class="discord-link" target="_blank">
+            <i class="fab fa-discord"></i>
+            <span>Join State 1535 Discord</span>
+        </a>
+    </footer>
+
+    <!-- Floating Widgets -->
+    <div class="floating-widget" id="map-widget" style="bottom: 200px;">
+        <div class="widget-icon">
+            <i class="fas fa-map-marked-alt"></i>
+        </div>
+        <span>State Map</span>
+    </div>
+
+    <div class="floating-widget" id="comments-widget" style="bottom: 140px;">
+        <div class="widget-icon">
+            <i class="fas fa-comment-dots"></i>
+        </div>
+        <span>Feedback</span>
+    </div>
+
+    <div class="floating-widget" id="transfer-widget" style="bottom: 80px;">
+        <div class="widget-icon">
+            <i class="fas fa-exchange-alt"></i>
+        </div>
+        <span>Transfers</span>
+    </div>
+
+    <div class="floating-widget" id="music-widget" style="bottom: 20px;">
+        <div class="widget-icon" id="music-icon">
+            <i class="fas fa-play"></i>
+        </div>
+        <span>Music</span>
+    </div>
+
+    <audio id="bg-music" loop>
+        <source src="mixkit-serene-view-443.mp3" type="audio/mpeg">
+    </audio>
+
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    <script>
+        // Particles Configuration
+        particlesJS('particles-js', {
+            particles: {
+                number: { value: 80, density: { enable: true, value_area: 800 } },
+                color: { value: "#7fd3f8" },
+                shape: {
+                    type: "image",
+                    image: {
+                        src: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Cpath fill='%237fd3f8' d='M461.9 442.7c-8.5-11.2-21.2-17.7-34.9-17.7H85.1c-13.7 0-26.4 6.5-34.9 17.7L256 512l205.9-69.3zM256 0L0 170.7v170.7L256 512 512 341.3V170.7L256 0z'/%3E%3C/svg%3E",
+                        width: 512,
+                        height: 512
+                    }
+                },
+                opacity: { value: 0.5, random: true },
+                size: { value: 10, random: true },
+                move: {
+                    enable: true,
+                    speed: 1,
+                    direction: "bottom",
+                    out_mode: "out"
+                }
+            },
+            interactivity: {
+                detect_on: "canvas",
+                events: {
+                    onhover: { enable: true, mode: "repulse" },
+                    onclick: { enable: true, mode: "push" }
+                }
+            }
+        });
+
+        // Widget Navigation
+        document.getElementById('map-widget').addEventListener('click', function() {
+            if (!window.location.href.includes('map.html')) {
+                window.location.href = 'map.html';
+            }
+        });
+
+        document.getElementById('comments-widget').addEventListener('click', function() {
+            if (!window.location.href.includes('feedback.html')) {
+                window.location.href = 'feedback.html';
+            }
+        });
+
+        document.getElementById('transfer-widget').addEventListener('click', function() {
+            if (!window.location.href.includes('transfers.html')) {
+                window.location.href = 'transfers.html';
+            }
+        });
+
+        // Music Player
+        const musicPlayer = {
+            audio: document.getElementById('bg-music'),
+            icon: document.getElementById('music-icon'),
+            isPlaying: false,
+
+            init() {
+                this.audio.volume = 0.3;
+                this.loadState();
+                this.addEventListeners();
+            },
+
+            addEventListeners() {
+                document.getElementById('music-widget').addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    this.toggle();
+                });
+            },
+
+            toggle() {
+                this.isPlaying ? this.pause() : this.play();
+            },
+
+            play() {
+                this.audio.play()
+                    .then(() => {
+                        this.isPlaying = true;
+                        this.icon.innerHTML = '<i class="fas fa-pause"></i>';
+                        localStorage.setItem('musicPlaying', 'true');
+                    });
+            },
+
+            pause() {
+                this.audio.pause();
+                this.isPlaying = false;
+                this.icon.innerHTML = '<i class="fas fa-play"></i>';
+                localStorage.setItem('musicPlaying', 'false');
+            },
+
+            loadState() {
+                if (localStorage.getItem('musicPlaying') === 'true') this.play();
+            }
+        };
+        musicPlayer.init();
+
+        // Transfer Form Handling
+        document.getElementById('transfer-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const transferData = {
+                name: document.getElementById('player-name').value,
+                id: document.getElementById('player-id').value,
+                state: document.getElementById('current-state').value,
+                furnace: document.getElementById('furnace-level').value,
+                alliance: document.getElementById('alliance').value,
+                message: document.getElementById('message').value
+            };
+            
+            if (transferData.name && transferData.id && transferData.state && transferData.furnace) {
+                const transferEntry = document.createElement('div');
+                transferEntry.className = 'transfer-entry';
+                transferEntry.innerHTML = `
+                    <div class="transfer-header">
+                        <strong>${transferData.name}</strong>
+                        <span>${new Date().toLocaleDateString()}</span>
+                    </div>
+                    <div>ID: ${transferData.id}</div>
+                    <div>From State: ${transferData.state}</div>
+                    <div>Furnace: ${transferData.furnace}</div>
+                    ${transferData.alliance ? `<div>Target Alliance: ${transferData.alliance}</div>` : ''}
+                    ${transferData.message ? `<p style="margin-top: 10px;">${transferData.message}</p>` : ''}
+                `;
+                
+                document.getElementById('transfer-entries').prepend(transferEntry);
+                this.reset();
+                
+                // Show success message
+                alert('Transfer request submitted successfully! Our team will review your application.');
+            }
+        });
+
+        // Load sample transfer requests
+        const sampleTransfers = [
+            {
+                name: 'IceQueen',
+                date: '2023-06-18',
+                id: '123456789',
+                state: '1420',
+                furnace: 'F3',
+                alliance: 'FrozenLegion',
+                message: 'Looking for an active alliance with coordinated SvS participation'
+            },
+            {
+                name: 'SurvivalistX',
+                date: '2023-06-15',
+                id: '987654321',
+                state: '1385',
+                furnace: 'F5',
+                alliance: '',
+                message: 'My current state is dying, looking for an active community'
+            },
+            {
+                name: 'FrostGiant',
+                date: '2023-06-10',
+                id: '456123789',
+                state: '1472',
+                furnace: 'F2',
+                alliance: 'WinterGuard',
+                message: 'Friends recommended your state for fair gameplay and good leadership'
+            }
+        ];
+
+        // Display sample transfers
+        sampleTransfers.forEach(transfer => {
+            const transferEl = document.createElement('div');
+            transferEl.className = 'transfer-entry';
+            transferEl.innerHTML = `
+                <div class="transfer-header">
+                    <strong>${transfer.name}</strong>
+                    <span>${new Date(transfer.date).toLocaleDateString()}</span>
+                </div>
+                <div>ID: ${transfer.id}</div>
+                <div>From State: ${transfer.state}</div>
+                <div>Furnace: ${transfer.furnace}</div>
+                ${transfer.alliance ? `<div>Target Alliance: ${transfer.alliance}</div>` : ''}
+                ${transfer.message ? `<p style="margin-top: 10px;">${transfer.message}</p>` : ''}
+            `;
+            document.getElementById('transfer-entries').appendChild(transferEl);
+        });
+
+        // Form validation
+        document.getElementById('furnace-level').addEventListener('change', function() {
+            if (this.value === 'F1') {
+                alert('Note: F1 players may need to demonstrate activity and commitment before being accepted into top alliances.');
+            }
+        });
+    </script>
+</body>
+</html>
